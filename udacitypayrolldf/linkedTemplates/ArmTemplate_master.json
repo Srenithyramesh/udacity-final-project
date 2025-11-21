@@ -1,0 +1,104 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "udacitypayrolldf"
+		},
+		"AzureDataLakeStorageLink_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorageLink'"
+		},
+		"AzureSqlDatabaseLink_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSqlDatabaseLink'"
+		},
+		"AzureDataLakeStorageLink_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://nycpayrollstorage.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabaseLink_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "nycpayrollserver1.database.windows.net"
+		},
+		"AzureSqlDatabaseLink_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "udacity"
+		},
+		"AzureSqlDatabaseLink_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "udacity"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "udacitypayrolldf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDataLakeStorageLink_accountKey": {
+						"value": "[parameters('AzureDataLakeStorageLink_accountKey')]"
+					},
+					"AzureSqlDatabaseLink_password": {
+						"value": "[parameters('AzureSqlDatabaseLink_password')]"
+					},
+					"AzureDataLakeStorageLink_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorageLink_properties_typeProperties_url')]"
+					},
+					"AzureSqlDatabaseLink_properties_typeProperties_server": {
+						"value": "[parameters('AzureSqlDatabaseLink_properties_typeProperties_server')]"
+					},
+					"AzureSqlDatabaseLink_properties_typeProperties_database": {
+						"value": "[parameters('AzureSqlDatabaseLink_properties_typeProperties_database')]"
+					},
+					"AzureSqlDatabaseLink_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSqlDatabaseLink_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "udacitypayrolldf_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'udacitypayrolldf_ArmTemplate_0')]"
+			]
+		}
+	]
+}

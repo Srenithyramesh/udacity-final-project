@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "udacitypayrolldf"
+		},
+		"AzureDataLakeStorageLink_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabaseLink_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorageLink_properties_typeProperties_url": {
+			"value": "https://nycpayrollstorage.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabaseLink_properties_typeProperties_server": {
+			"value": "nycpayrollserver1.database.windows.net"
+		},
+		"AzureSqlDatabaseLink_properties_typeProperties_database": {
+			"value": "udacity"
+		},
+		"AzureSqlDatabaseLink_properties_typeProperties_userName": {
+			"value": "udacity"
+		}
+	}
+}
