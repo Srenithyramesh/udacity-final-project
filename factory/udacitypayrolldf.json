@@ -1,0 +1,9 @@
+{
+	"name": "udacitypayrolldf",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "2bfb8c5c-ea26-4be2-8106-f0359ed2b64f",
+		"tenantId": "f958e84a-92b8-439f-a62d-4f45996b6d07"
+	}
+}
